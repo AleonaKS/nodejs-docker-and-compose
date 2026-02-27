@@ -1,0 +1,11 @@
+# .dockerignore
+node_modules/
+dist/
+build/
+*.log
+*.tmp
+*.md
+*.git/
+*.env
+frontend/.env
+backend/.env
