@@ -1,4 +1,3 @@
-// backend/src/main.ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
@@ -15,12 +14,12 @@ async function bootstrap() {
 
   try {
     const app = await NestFactory.create(AppModule, { cors: true });
- 
     app.enableShutdownHooks();
- 
+
     const configService = app.get(ConfigService);
-    const port = configService.get<number>('PORT', 4000);
- 
+    const port = configService.get<number>('PORT', 4000);  // <- используем PORT из .env
+    await app.listen(port, '0.0.0.0');  // <- важно для Docker
+
     app.useGlobalPipes(
       new ValidationPipe({
         transform: true,
@@ -28,12 +27,11 @@ async function bootstrap() {
         forbidNonWhitelisted: true,
       }),
     );
- 
+
     app.useGlobalFilters(new HttpExceptionFilter());
- 
-    await app.listen(port, '0.0.0.0'); 
+
     logger.log(`Server started on port: ${port}`);
- 
+
     process.on('SIGTERM', () => logger.log('SIGTERM received – shutting down'));
     process.on('SIGINT', () => logger.log('SIGINT received – shutting down'));
   } catch (error) {
