@@ -1,18 +1,17 @@
+import './polyfill';  
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe, Logger } from '@nestjs/common';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
-
-import { randomBytes } from 'crypto';  
-import { webcrypto } from 'crypto';    
+import { randomBytes } from 'crypto';
 
 if (typeof globalThis.crypto === 'undefined') {
-  (globalThis as any).crypto = webcrypto; 
+  globalThis.crypto = { randomBytes } as any;
 }
 
 async function bootstrap() {
-  const logger = new Logger('Bootstrap');
+  const logger = new Logger('Bootstrap'); 
 
   try {
     const app = await NestFactory.create(AppModule, { cors: true });

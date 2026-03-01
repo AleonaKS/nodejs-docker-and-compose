@@ -1,5 +1,5 @@
 # ---------- 1 stage ----------
-FROM node:16-alpine AS builder
+FROM node:18-alpine AS builder
 WORKDIR /app
 
 COPY package*.json ./
@@ -10,7 +10,7 @@ RUN npm run build
 
 
 # ---------- 2 stage ----------
-FROM node:16
+FROM node:18-alpine
 WORKDIR /app
 
 RUN npm install -g pm2
