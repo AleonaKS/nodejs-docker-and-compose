@@ -17,14 +17,14 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule, {
       cors: {
         origin: 'http://kupipodari.nomorepartiessite.ru',
-        credentials: true, // если используешь cookies/Authorization
+        credentials: true,  
       },
     });
     app.enableShutdownHooks();
 
     const configService = app.get(ConfigService);
-    const port = configService.get<number>('PORT', 4000);  // <- используем PORT из .env
-    await app.listen(port, '0.0.0.0');  // <- важно для Docker
+    const port = configService.get<number>('PORT', 4000);   
+    await app.listen(port, '0.0.0.0');  
 
     app.useGlobalPipes(
       new ValidationPipe({
