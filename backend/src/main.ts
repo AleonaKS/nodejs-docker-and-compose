@@ -1,4 +1,4 @@
-// src/main.ts
+// backend/src/main.ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
@@ -19,7 +19,7 @@ async function bootstrap() {
     app.enableShutdownHooks();
  
     const configService = app.get(ConfigService);
-    const port = configService.get<number>('port', 3000);
+    const port = configService.get<number>('PORT', 4000);
  
     app.useGlobalPipes(
       new ValidationPipe({
@@ -31,7 +31,7 @@ async function bootstrap() {
  
     app.useGlobalFilters(new HttpExceptionFilter());
  
-    await app.listen(port);
+    await app.listen(port, '0.0.0.0'); 
     logger.log(`Server started on port: ${port}`);
  
     process.on('SIGTERM', () => logger.log('SIGTERM received – shutting down'));

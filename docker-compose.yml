@@ -26,6 +26,7 @@ services:
     restart: unless-stopped
     env_file: .env
     environment:
+      PORT: ${PORT}
       JWT_SECRET: ${JWT_SECRET}
       POSTGRES_HOST: database
       POSTGRES_PORT: 5432
