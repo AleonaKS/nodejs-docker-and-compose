@@ -1,4 +1,19 @@
 services:
+  nginx:
+    image: nginx:latest
+    container_name: nodejs-docker-and-compose-nginx-1
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443" 
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro   
+      - ./nginx/certs:/etc/ssl/certs:ro  
+      - ./nginx/certs:/etc/ssl/private:ro
+    depends_on:
+      - backend
+
   database:
     image: postgres:15-alpine
     container_name: kupipodari_db
