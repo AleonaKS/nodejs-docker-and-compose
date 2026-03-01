@@ -1,19 +1,6 @@
-services:
-  # nginx:
-  #   image: nginx:latest
-  #   container_name: nodejs-docker-and-compose-nginx-1
-  #   restart: unless-stopped
-  #   ports:
-  #     - "8080:80"
-  #     - "443:443" 
-  #   volumes:
-  #     - ./frontend:/usr/share/nginx/html:ro
-  #     - ./nginx/conf.d:/etc/nginx/conf.d:ro    
-  #     - /etc/letsencrypt/live/kupipodari.nomorepartiessite.ru/fullchain.pem:/etc/ssl/certs/nginx.crt:ro
-  #     - /etc/letsencrypt/live/kupipodari.nomorepartiessite.ru/privkey.pem:/etc/ssl/private/nginx.key:ro
-  #   depends_on:
-  #     - backend
+version: "3.9"
 
+services:
   database:
     image: postgres:15-alpine
     container_name: kupipodari_db
@@ -40,8 +27,8 @@ services:
     env_file: .env
     environment:
       JWT_SECRET: ${JWT_SECRET}
-      POSTGRES_HOST: ${POSTGRES_HOST}
-      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_HOST: database
+      POSTGRES_PORT: 5432
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
@@ -50,6 +37,8 @@ services:
         condition: service_healthy
     ports:
       - "4000:4000"
+    networks:
+      - kupipodari_net
 
   frontend:
     build:
@@ -62,8 +51,11 @@ services:
       - backend
     ports:
       - "8081:80"
+    networks:
+      - kupipodari_net
 
 volumes:
   pgdata:
 
-
+networks:
+  kupipodari_net:
