@@ -8,9 +8,9 @@ services:
       - "443:443" 
     volumes:
       - ./frontend:/usr/share/nginx/html:ro
-      - ./nginx/conf.d:/etc/nginx/conf.d:ro   
-      - ./nginx/certs:/etc/ssl/certs:ro  
-      - ./nginx/certs:/etc/ssl/private:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro    
+      - /etc/letsencrypt/live/kupipodari.nomorepartiessite.ru/fullchain.pem:/etc/ssl/certs/nginx.crt:ro
+      - /etc/letsencrypt/live/kupipodari.nomorepartiessite.ru/privkey.pem:/etc/ssl/private/nginx.key:ro
     depends_on:
       - backend
 
