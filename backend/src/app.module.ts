@@ -16,13 +16,14 @@ import configuration from './config/configuration';
       isGlobal: true,
       load: [configuration],
     }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        ...configService.get('database'),
-      }),
-      inject: [ConfigService],
-    }),
+TypeOrmModule.forRootAsync({
+  imports: [ConfigModule],
+  useFactory: (configService: ConfigService) => ({
+    ...configService.get('database'),
+    synchronize: true,  
+  }),
+  inject: [ConfigService],
+}), 
     UsersModule,
     WishesModule,
     WishlistsModule,
