@@ -10,7 +10,7 @@ RUN npm run build
 
 
 # ---------- 2 stage ----------
-FROM node:16-alpine
+FROM node:16
 WORKDIR /app
 
 RUN npm install -g pm2
