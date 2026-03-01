@@ -1,15 +1,9 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  OneToMany,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { Wish } from '../../wishes/entities/wish.entity';
 import { Wishlist } from '../../wishlists/entities/wishlist.entity';
 import { Offer } from '../../offers/entities/offer.entity';
-@Entity('"user"') 
+
+@Entity({ name: 'users' })  
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -23,11 +17,7 @@ export class User {
   @Column({ unique: true, length: 30 })
   username: string;
 
-  @Column({
-    length: 200,
-    nullable: true,
-    default: 'Пока ничего не рассказал о себе',
-  })
+  @Column({ length: 200, nullable: true, default: 'Пока ничего не рассказал о себе' })
   about: string;
 
   @Column({ nullable: true, default: 'https://i.pravatar.cc/300' })
