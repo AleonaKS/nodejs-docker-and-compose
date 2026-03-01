@@ -1,18 +1,18 @@
 services:
-  nginx:
-    image: nginx:latest
-    container_name: nodejs-docker-and-compose-nginx-1
-    restart: unless-stopped
-    ports:
-      - "8080:80"
-      - "443:443" 
-    volumes:
-      - ./frontend:/usr/share/nginx/html:ro
-      - ./nginx/conf.d:/etc/nginx/conf.d:ro    
-      - /etc/letsencrypt/live/kupipodari.nomorepartiessite.ru/fullchain.pem:/etc/ssl/certs/nginx.crt:ro
-      - /etc/letsencrypt/live/kupipodari.nomorepartiessite.ru/privkey.pem:/etc/ssl/private/nginx.key:ro
-    depends_on:
-      - backend
+  # nginx:
+  #   image: nginx:latest
+  #   container_name: nodejs-docker-and-compose-nginx-1
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8080:80"
+  #     - "443:443" 
+  #   volumes:
+  #     - ./frontend:/usr/share/nginx/html:ro
+  #     - ./nginx/conf.d:/etc/nginx/conf.d:ro    
+  #     - /etc/letsencrypt/live/kupipodari.nomorepartiessite.ru/fullchain.pem:/etc/ssl/certs/nginx.crt:ro
+  #     - /etc/letsencrypt/live/kupipodari.nomorepartiessite.ru/privkey.pem:/etc/ssl/private/nginx.key:ro
+  #   depends_on:
+  #     - backend
 
   database:
     image: postgres:15-alpine
