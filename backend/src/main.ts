@@ -14,7 +14,12 @@ async function bootstrap() {
   const logger = new Logger('Bootstrap'); 
 
   try {
-    const app = await NestFactory.create(AppModule, { cors: true });
+    const app = await NestFactory.create(AppModule, {
+      cors: {
+        origin: 'http://kupipodari.nomorepartiessite.ru',
+        credentials: true, // если используешь cookies/Authorization
+      },
+    });
     app.enableShutdownHooks();
 
     const configService = app.get(ConfigService);
