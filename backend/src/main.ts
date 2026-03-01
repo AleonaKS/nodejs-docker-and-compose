@@ -3,10 +3,12 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe, Logger } from '@nestjs/common';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
-import { randomBytes } from 'crypto';
+
+import { randomBytes } from 'crypto';  
+import { webcrypto } from 'crypto';    
 
 if (typeof globalThis.crypto === 'undefined') {
-  globalThis.crypto = { randomBytes } as any;
+  (globalThis as any).crypto = webcrypto; 
 }
 
 async function bootstrap() {
